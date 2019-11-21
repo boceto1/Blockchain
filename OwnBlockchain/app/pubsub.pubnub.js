@@ -1,6 +1,6 @@
 const PubNub = require('pubnub');
 
-const credentials = require('./const');
+const credentials = require('../const');
 
 const CHANNELS = {
     TEST: 'TEST',
