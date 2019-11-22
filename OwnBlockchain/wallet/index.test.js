@@ -1,5 +1,5 @@
 const Wallet = require('./index');
-
+const { verifySignature } = require('../util');
 
 describe('Wallet', ()=>{
     let wallet;
@@ -14,5 +14,46 @@ describe('Wallet', ()=>{
 
     it('has a `publicKey`', () => {
         expect(wallet).toHaveProperty('publicKey');
+    });
+
+    describe('signign data', () => {
+        const data = 'foobar';
+
+        it('verifies a signature', () => {
+            expect(
+                verifySignature({
+                    publicKey:wallet.publicKey,
+                    data,
+                    signature:wallet.sign(data)
+                })
+            ).toBe(true);
+        });
+
+
+        it('does not verify an invalid signature', ()=>{
+            expect(
+                verifySignature({
+                    publicKey:wallet.publicKey,
+                    data,
+                    signature:new Wallet().sign(data)
+                })
+            ).toBe(false);
+        });
+
+
+
+    });
+
+    describe('createTransaction()', () => {
+        describe('and the amount exceeds the balance', ()=>{
+            it('throws an error', ()=>{
+                expect(()=> wallet.createTransaction())
+                    .toThrow('Amount exceeds balance');
+            });
+        });
+
+        describe('and the amount is valid', () =>{
+
+        });
     });
 });
