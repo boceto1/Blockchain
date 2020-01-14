@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Blocks from './Blocks';
-
+import logo from '../assets/logo.png'
 class Main extends Component {
     state = {walletInfo: {address: 'fooxv6', balance: 9999}};
 
@@ -15,10 +15,15 @@ class Main extends Component {
         const { address, balance } = this.state.walletInfo;
 
         return (
-            <div>
+            <div className='Main'>
+                <img className='logo' src={logo}/>
+                <br />
                 <div>Welcome to the blockchain...</div>
+                <br />
+                <div className='WalletInfo'>
                 <div>Address: {address}</div>
                 <div>Balance: {balance}</div>
+                </div>
                 <br />
                 <Blocks />
             </div>
